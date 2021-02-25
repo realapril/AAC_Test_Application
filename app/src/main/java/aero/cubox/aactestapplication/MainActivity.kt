@@ -3,8 +3,11 @@ package aero.cubox.aactestapplication
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,17 +17,18 @@ class MainActivity : AppCompatActivity() {
         val db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "database-name"
-        ).allowMainThreadQueries().build()
+        ).build()
 
-
-//        txt_result.text = db.todoDao().getAll().toString()
+        //변경된 데이터 조회
         db.todoDao().getAll().observe(this, Observer {
             txt_result.text = it.toString()
         })
 
+        //데이터추가
         btn_add.setOnClickListener{
-            db.todoDao().insert(Todo(edt_todo.text.toString()))
-//            txt_result.text = db.todoDao().getAll().toString()
+            lifecycleScope.launch(Dispatchers.IO) {
+                db.todoDao().insert(Todo(edt_todo.text.toString()))
+            }
         }
     }
 }

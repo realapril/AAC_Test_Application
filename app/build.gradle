@@ -48,6 +48,8 @@ dependencies {
     //annotation
     implementation "javax.annotation:jsr250-api:1.0"
 
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0"
+
     def room_version = "2.2.6"
 
     implementation "androidx.room:room-runtime:$room_version"
@@ -58,4 +60,7 @@ dependencies {
 
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
+
+
+
 }
