@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="aero.cubox.aactestapplication.vm.MainViewModel"  />
+    </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:context=".MainActivity"
         >
 
         <EditText
             android:id="@+id/edt_todo"
+            android:text="@={viewModel.newTodo}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -21,10 +29,11 @@
 
         <Button
             android:id="@+id/btn_add"
+            android:onClick="@{() -> viewModel.insert(viewModel.newTodo)}"
+            android:text="Add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.474"
             app:layout_constraintStart_toEndOf="@+id/edt_todo"
@@ -32,6 +41,7 @@
 
         <TextView
             android:id="@+id/txt_result"
+            android:text="@{viewModel.todos.toString()}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -40,3 +50,5 @@
             app:layout_constraintTop_toBottomOf="@+id/edt_todo"
             app:layout_constraintVertical_bias="0.52" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
